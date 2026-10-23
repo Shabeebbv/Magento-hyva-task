@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Runs after Magento_Catalog's catalogTopmenu plugin has built the category nodes -->
+    <type name="Magento\Theme\Block\Html\Topmenu">
+        <plugin name="shabeeb_furniture_submenu" type="Shabeeb\Storefront\Plugin\FurnitureSubmenu" sortOrder="100"/>
+    </type>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- Logout button at the end of the My Account page; posts to Magento's standard customer/account/logout -->
+        <referenceContainer name="content">
+            <block class="Magento\Customer\Block\Account\Customer" name="shabeeb.account.logout"
+                   template="Magento_Customer::account/logout-button.phtml" after="-" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

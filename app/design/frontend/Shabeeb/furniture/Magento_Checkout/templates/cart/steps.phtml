@@ -1,0 +1,13 @@
+<?php
+/**
+ * Checkout progress line under the cart title.
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+<ol class="shabeeb-cart-steps">
+    <li class="current"><?= $escaper->escapeHtml(__('Shopping Cart')) ?></li>
+    <li><?= $escaper->escapeHtml(__('Checkout')) ?></li>
+    <li><?= $escaper->escapeHtml(__('Order Complete')) ?></li>
+</ol>

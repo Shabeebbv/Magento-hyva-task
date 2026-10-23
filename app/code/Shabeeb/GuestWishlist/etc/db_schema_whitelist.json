@@ -1,0 +1,21 @@
+{
+    "shabeeb_guest_wishlist_item": {
+        "column": {
+            "item_id": true,
+            "guest_token": true,
+            "product_id": true,
+            "store_id": true,
+            "qty": true,
+            "added_at": true
+        },
+        "index": {
+            "SHABEEB_GUEST_WISHLIST_ITEM_GUEST_TOKEN": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SHABEEB_GUEST_WISHLIST_ITEM_GUEST_TOKEN_PRODUCT_ID_STORE_ID": true,
+            "SHABEEB_GUEST_WISHLIST_ITEM_PRD_ID_CAT_PRD_ENTT_ENTT_ID": true,
+            "SHABEEB_GUEST_WISHLIST_ITEM_STORE_ID_STORE_STORE_ID": true
+        }
+    }
+}

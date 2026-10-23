@@ -1,0 +1,45 @@
+<?php
+/**
+ * Image gallery, replacing the Fotorama carousel from Magento_Catalog::product/view/gallery.phtml.
+ * Tablet and desktop: every image in a two-column grid, one full-width image then two half-width ones, repeating.
+ * Mobile: only the selected image, with clickable thumbnails underneath (js/product-gallery switches it).
+ *
+ * @var \Magento\Catalog\Block\Product\View\Gallery $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$images = array_values($block->getGalleryImages()->getItems());
+$productName = (string)$block->getProduct()->getName();
+$count = count($images);
+?>
+<div class="shabeeb-gallery" data-mage-init='{"js/product-gallery": {}}'>
+    <?php if (!$images): ?>
+        <figure class="shabeeb-gallery-item is-wide active">
+            <img src="<?= $escaper->escapeUrl($block->getViewModel()->getMainProductImage()) ?>"
+                 alt="<?= $escaper->escapeHtmlAttr($productName) ?>" itemprop="image"/>
+        </figure>
+    <?php endif; ?>
+    <?php foreach ($images as $index => $image): ?>
+        <?php $alt = $image->getData('label') ?: $productName; ?>
+        <figure class="shabeeb-gallery-item<?= $index % 3 === 0 ? ' is-wide' : '' ?><?= $index === 0 ? ' active' : '' ?>"
+                data-role="gallery-item">
+            <img src="<?= $escaper->escapeUrl($image->getData('medium_image_url')) ?>"
+                 alt="<?= $escaper->escapeHtmlAttr($alt) ?>"
+                 <?= $index === 0 ? 'itemprop="image"' : 'loading="lazy"' ?>/>
+        </figure>
+    <?php endforeach; ?>
+    <?php if ($count > 1): ?>
+        <ul class="shabeeb-gallery-thumbs">
+            <?php foreach ($images as $index => $image): ?>
+                <li>
+                    <button type="button"
+                            class="shabeeb-gallery-thumb<?= $index === 0 ? ' active' : '' ?>"
+                            data-role="gallery-thumb"
+                            aria-pressed="<?= $index === 0 ? 'true' : 'false' ?>"
+                            aria-label="<?= $escaper->escapeHtmlAttr(__('Show image %1 of %2', $index + 1, $count)) ?>">
+                        <img src="<?= $escaper->escapeUrl($image->getData('small_image_url')) ?>" alt="" loading="lazy"/>
+                    </button>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+</div>

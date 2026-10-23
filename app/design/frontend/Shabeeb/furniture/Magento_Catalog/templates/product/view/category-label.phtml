@@ -1,0 +1,18 @@
+<?php
+/**
+ * Category name under the product title.
+ *
+ * @var \Magento\Catalog\Block\Product\View $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$category = $block->getProduct()->getCategoryCollection()
+    ->addAttributeToSelect('name')
+    ->addIsActiveFilter()
+    ->setPageSize(1)
+    ->getFirstItem();
+?>
+<?php if ($category->getId()): ?>
+    <a class="shabeeb-product-category" href="<?= $escaper->escapeUrl($category->getUrl()) ?>">
+        <?= $escaper->escapeHtml($category->getName()) ?>
+    </a>
+<?php endif; ?>

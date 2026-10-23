@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- Text logo (keeps the core mobile nav toggle) -->
+        <referenceBlock name="logo" template="Magento_Theme::html/header/logo.phtml">
+            <arguments>
+                <argument name="logo_alt" xsi:type="string" translate="true">2XL Home</argument>
+            </arguments>
+        </referenceBlock>
+
+        <!-- Black top bar with service notes; Luma's account links stay in the panel for the mobile menu -->
+        <referenceContainer name="header.panel">
+            <block class="Magento\Framework\View\Element\Template" name="shabeeb.header.services"
+                   template="Magento_Theme::html/header/services.phtml" before="-"/>
+        </referenceContainer>
+
+        <!-- Main row: logo, search, account / wish list / cart icons -->
+        <referenceContainer name="header-wrapper">
+            <block class="Magento\Framework\View\Element\Template" name="shabeeb.header.account"
+                   template="Magento_Theme::html/header/account-link.phtml" before="shabeeb.wishlist.link"/>
+        </referenceContainer>
+
+        <!-- Footer: brand + link columns, with the newsletter form inside -->
+        <referenceContainer name="footer">
+            <block class="Magento\Framework\View\Element\Template" name="shabeeb.footer"
+                   template="Magento_Theme::html/footer.phtml" before="-"/>
+        </referenceContainer>
+        <move element="form.subscribe" destination="shabeeb.footer" as="subscribe"/>
+        <referenceBlock name="footer_links" remove="true"/>
+        <referenceBlock name="store_switcher" remove="true"/>
+
+        <!-- Keep the header and sidebars focused on cart and wish list -->
+        <referenceBlock name="catalog.compare.link" remove="true"/>
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        <referenceBlock name="related-product-compare" remove="true"/>
+        <referenceBlock name="wishlist_sidebar" remove="true"/>
+        <referenceBlock name="sale.reorder.sidebar" remove="true"/>
+        <referenceBlock name="report.bugs" remove="true"/>
+    </body>
+</page>

@@ -1,0 +1,19 @@
+<?php
+/**
+ * Logout button for the My Account page. Submits a POST with the form key to Magento's own
+ * customer/account/logout action (CSRF-checked), which ends the session and shows the standard
+ * "You have signed out" page before returning to the homepage. Rendered only for signed-in customers.
+ *
+ * @var \Magento\Customer\Block\Account\Customer $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+if (!$block->customerLoggedIn()) {
+    return;
+}
+?>
+<form class="shabeeb-account-logout" method="post" action="<?= $escaper->escapeUrl($block->getUrl('customer/account/logout')) ?>">
+    <?= $block->getBlockHtml('formkey') ?>
+    <button type="submit" class="action secondary">
+        <span><?= $escaper->escapeHtml(__('Logout')) ?></span>
+    </button>
+</form>

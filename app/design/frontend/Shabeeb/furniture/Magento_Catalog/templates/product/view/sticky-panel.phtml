@@ -1,0 +1,14 @@
+<?php
+/**
+ * Starts js/sticky-panel on the purchase column (the sticky itself is CSS, in _extend.less).
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ */
+?>
+<script type="text/x-magento-init">
+    {
+        ".catalog-product-view .product-info-main": {
+            "js/sticky-panel": {"gap": 20}
+        }
+    }
+</script>

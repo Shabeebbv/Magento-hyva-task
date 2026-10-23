@@ -1,0 +1,22 @@
+# Installed by Composer
+/vendor/
+
+# Generated at runtime / build time
+/generated/
+/var/
+/pub/static/*
+!/pub/static/.htaccess
+/pub/media/*
+!/pub/media/.htaccess
+
+# Secrets and local environment
+/app/etc/env.php
+/auth.json
+
+# Hyvä Tailwind build dependencies
+node_modules/
+
+# IDE / OS
+/.idea/
+/.vscode/
+.DS_Store

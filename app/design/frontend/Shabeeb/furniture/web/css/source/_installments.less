@@ -1,0 +1,271 @@
+// Product page: example instalment plans teaser and modal (Magento_Catalog::product/view/installments.phtml).
+// Sizes follow the reference's provider modal: 594px wide, 50px from the window edges, 36px corners, 50% overlay.
+
+@sf-bnpl-ink: #0f0f2d;
+@sf-bnpl-muted: #6b6b7b;
+@sf-bnpl-line: #e3e3e8;
+@sf-bnpl-pill: #f6effe;
+@sf-bnpl-pill-text: #7c2fd9;
+
+// Neutral button: removes Luma's grey button look in every state
+.sf-bnpl-reset-button() {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    color: inherit;
+    font-family: inherit;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: inherit;
+    padding: 0;
+    text-transform: none;
+}
+
+& when (@media-common = true) {
+    // Locks page scroll while the modal is open; the padding stands in for the hidden scrollbar
+    html.shabeeb-modal-open {
+        overflow: hidden;
+
+        body {
+            padding-right: var(--shabeeb-scrollbar, 0);
+        }
+    }
+
+    .shabeeb-installments {
+        margin: 24px 0 0;
+    }
+
+    .shabeeb-installments-trigger,
+    .shabeeb-installments-trigger:hover,
+    .shabeeb-installments-trigger:focus,
+    .shabeeb-installments-trigger:active {
+        .sf-bnpl-reset-button();
+        align-items: center;
+        background: #fff;
+        border: 1px solid @sf-line;
+        border-radius: 6px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, .06);
+        color: @sf-text;
+        cursor: pointer;
+        display: flex;
+        font-size: 14px;
+        gap: 16px;
+        justify-content: space-between;
+        line-height: 1.5;
+        max-width: 420px;
+        padding: 14px 16px;
+        text-align: left;
+        width: 100%;
+    }
+
+    .shabeeb-installments-trigger:hover {
+        border-color: @sf-line-strong;
+    }
+
+    .shabeeb-installments-trigger:focus-visible,
+    .shabeeb-installments-close:focus-visible {
+        outline: 2px solid @sf-ink;
+        outline-offset: 2px;
+    }
+
+    .shabeeb-installments-more {
+        text-decoration: underline;
+        white-space: nowrap;
+    }
+
+    // Provider name as a plain text badge (no provider artwork is bundled)
+    .shabeeb-bnpl-badge {
+        background: linear-gradient(90deg, #fbcfa6, #f6a9c9 40%, #c9acf2 70%, #a8d6f6);
+        border-radius: 6px;
+        color: #000;
+        display: inline-block;
+        flex: none;
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: .02em;
+        line-height: 1;
+        padding: 6px 10px 7px;
+    }
+
+    // Modal: a native <dialog>, shown in the top layer above the header and sticky panel
+    .shabeeb-installments-modal {
+        background: #fff;
+        border: 0;
+        border-radius: 36px;
+        box-shadow: 0 24px 64px rgba(0, 0, 0, .2);
+        color: @sf-bnpl-ink;
+        max-height: calc(100vh - 100px);
+        max-height: calc(100dvh - 100px);
+        max-width: calc(100vw - 32px);
+        overflow: hidden;
+        padding: 0;
+        width: 594px;
+
+        &::backdrop {
+            background: rgba(0, 0, 0, .5);
+        }
+    }
+
+    .shabeeb-installments-body {
+        max-height: inherit;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding: 48px 24px 32px;
+        text-align: center;
+    }
+
+    .shabeeb-installments-close,
+    .shabeeb-installments-close:hover,
+    .shabeeb-installments-close:focus,
+    .shabeeb-installments-close:active {
+        .sf-bnpl-reset-button();
+        background: #f2f2f5;
+        border-radius: 50%;
+        cursor: pointer;
+        height: 32px;
+        position: absolute;
+        right: 24px;
+        top: 24px;
+        width: 32px;
+        z-index: 1;
+
+        &::before,
+        &::after {
+            background: @sf-bnpl-ink;
+            content: '';
+            height: 1.5px;
+            left: 10px;
+            position: absolute;
+            top: 15px;
+            width: 12px;
+        }
+
+        &::before {
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            transform: rotate(-45deg);
+        }
+    }
+
+    .shabeeb-installments-close:hover {
+        background: #e6e6ec;
+    }
+
+    .shabeeb-installments-title {
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -.03em;
+        line-height: 1;
+        margin: 20px auto 16px;
+        max-width: 320px;
+        text-transform: none;
+    }
+
+    .shabeeb-installments-lead {
+        font-size: 16px;
+        margin: 0;
+    }
+
+    .shabeeb-installments-notice {
+        background: #fff7e8;
+        border: 1px solid #f1dcae;
+        border-radius: 12px;
+        font-size: 13px;
+        line-height: 1.45;
+        margin: 16px 0 0;
+        padding: 10px 14px;
+    }
+
+    .shabeeb-installments-subtitle {
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: normal;
+        margin: 32px 0 12px;
+        text-transform: none;
+    }
+
+    .shabeeb-installments-plans {
+        display: grid;
+        gap: 12px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .shabeeb-installments-plan {
+        align-items: center;
+        border: 1px solid @sf-bnpl-line;
+        border-radius: 16px;
+        column-gap: 12px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        margin: 0;
+        padding: 14px 16px;
+        text-align: left;
+    }
+
+    .shabeeb-installments-amount {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .shabeeb-installments-pill {
+        background: @sf-bnpl-pill;
+        border-radius: 6px;
+        color: @sf-bnpl-pill-text;
+        font-size: 12px;
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        padding: 4px 8px;
+        white-space: nowrap;
+    }
+
+    .shabeeb-installments-fee {
+        color: @sf-bnpl-muted;
+        font-size: 14px;
+        grid-column: 1;
+    }
+
+    .shabeeb-installments-fineprint {
+        color: @sf-bnpl-muted;
+        font-size: 12px;
+        line-height: 1.5;
+        margin: 24px 0 0;
+        text-align: left;
+    }
+
+    @media (max-width: (@screen__m - 1)) {
+        .shabeeb-installments-trigger,
+        .shabeeb-installments-trigger:hover,
+        .shabeeb-installments-trigger:focus,
+        .shabeeb-installments-trigger:active {
+            max-width: none;
+        }
+
+        .shabeeb-installments-modal {
+            border-radius: 24px;
+            max-height: calc(100vh - 32px);
+            max-height: calc(100dvh - 32px);
+        }
+
+        .shabeeb-installments-body {
+            padding: 40px 16px 24px;
+        }
+
+        .shabeeb-installments-close,
+        .shabeeb-installments-close:hover,
+        .shabeeb-installments-close:focus,
+        .shabeeb-installments-close:active {
+            right: 16px;
+            top: 16px;
+        }
+
+        .shabeeb-installments-title {
+            font-size: 34px;
+            max-width: 240px;
+        }
+    }
+}
