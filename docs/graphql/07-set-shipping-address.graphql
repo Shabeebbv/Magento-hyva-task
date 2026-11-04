@@ -1,0 +1,12 @@
+# MUTATION: shipping address. The response lists the shipping methods available for that address.
+mutation SetShippingAddress($cartId: String!, $address: CartAddressInput!) {
+  setShippingAddressesOnCart(input: { cart_id: $cartId, shipping_addresses: [{ address: $address }] }) {
+    cart {
+      shipping_addresses {
+        city
+        country { code }
+        available_shipping_methods { carrier_code method_code carrier_title amount { value currency } }
+      }
+    }
+  }
+}

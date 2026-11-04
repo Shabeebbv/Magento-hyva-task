@@ -375,7 +375,6 @@ return [
         'PayPal_BraintreeGiftWrapping' => 1,
         'PayPal_BraintreeGraphQl' => 1,
         'PayPal_BraintreeReward' => 1,
-        'Shabeeb_GuestWishlist' => 1,
-        'Shabeeb_Storefront' => 1
+        'Shabeeb_ReactCheckout' => 1
     ]
 ];

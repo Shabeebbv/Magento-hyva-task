@@ -1,0 +1,7 @@
+# MUTATION: turn the cart into an order. Returns the order number (also visible in admin > Sales > Orders).
+mutation PlaceOrder($cartId: String!) {
+  placeOrder(input: { cart_id: $cartId }) {
+    orderV2 { number }
+    errors { code message }
+  }
+}

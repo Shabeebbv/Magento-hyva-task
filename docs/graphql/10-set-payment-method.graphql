@@ -1,0 +1,12 @@
+# MUTATION: choose a payment method; the response shows the final totals.
+mutation SetPaymentMethod($cartId: String!, $code: String!) {
+  setPaymentMethodOnCart(input: { cart_id: $cartId, payment_method: { code: $code } }) {
+    cart {
+      selected_payment_method { code title }
+      prices {
+        subtotal_excluding_tax { value currency }
+        grand_total { value currency }
+      }
+    }
+  }
+}

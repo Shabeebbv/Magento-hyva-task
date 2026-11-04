@@ -1,0 +1,6 @@
+# MUTATION: a guest must give an email before placing an order.
+mutation SetGuestEmail($cartId: String!, $email: String!) {
+  setGuestEmailOnCart(input: { cart_id: $cartId, email: $email }) {
+    cart { email }
+  }
+}

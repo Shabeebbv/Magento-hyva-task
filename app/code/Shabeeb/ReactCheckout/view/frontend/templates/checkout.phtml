@@ -1,0 +1,20 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+use Shabeeb\ReactCheckout\ViewModel\CheckoutConfig;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+
+/** @var CheckoutConfig $viewModel */
+$viewModel = $block->getData('view_model');
+?>
+<!-- React renders the whole checkout inside this element; data-config carries the cart ID and URLs -->
+<div id="react-checkout"
+     class="my-8"
+     data-config="<?= $escaper->escapeHtmlAttr($viewModel->getConfigJson()) ?>">
+    <p class="text-fg-secondary"><?= $escaper->escapeHtml(__('Loading checkout…')) ?></p>
+</div>
+<script type="module" src="<?= $escaper->escapeUrl($block->getViewFileUrl('Shabeeb_ReactCheckout::js/checkout.js')) ?>"></script>

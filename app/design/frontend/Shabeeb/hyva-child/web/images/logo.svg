@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="40" viewBox="0 0 200 40" role="img" aria-label="Peak Sports">
+    <path d="M2 34 L15 10 L22 22 L27 14 L38 34 Z" fill="#1d4ed8"/>
+    <path d="M15 10 L19 17.5 L15.5 16 L12.5 19 Z" fill="#ffffff"/>
+    <text x="46" y="27" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="900" letter-spacing="1" fill="#0f172a">PEAK<tspan dx="6" font-weight="400" fill="#1d4ed8">SPORTS</tspan></text>
+</svg>

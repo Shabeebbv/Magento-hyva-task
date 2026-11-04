@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- /checkout page: replace Hyvä's "No Checkout module installed" message with the React checkout -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="fallback.module.missing" remove="true"/>
+
+        <referenceContainer name="content">
+            <!-- cacheable="false": every shopper has their own cart, so this page must never come from the full-page cache -->
+            <block name="react.checkout"
+                   template="Shabeeb_ReactCheckout::checkout.phtml"
+                   cacheable="false">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Shabeeb\ReactCheckout\ViewModel\CheckoutConfig</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

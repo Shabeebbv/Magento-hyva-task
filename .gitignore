@@ -13,7 +13,11 @@
 /app/etc/env.php
 /auth.json
 
-# Hyvä Tailwind build dependencies
+# One-time root setup scripts for this laptop (MySQL/nginx/PHP-FPM), not part of the store
+/setup-root.sh
+/reset-mysql-root.sh
+
+# npm packages (Hyvä Tailwind build and the React checkout)
 node_modules/
 
 # IDE / OS

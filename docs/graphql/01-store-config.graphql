@@ -1,0 +1,8 @@
+# QUERY: read store settings (name, currency, locale). No variables needed.
+query StoreConfig {
+  storeConfig {
+    store_name
+    base_currency_code
+    locale
+  }
+}

@@ -1,0 +1,10 @@
+# MUTATION: add a product to the cart. Returns the cart so you can see items and totals.
+mutation AddToCart($cartId: String!, $sku: String!, $qty: Float!) {
+  addProductsToCart(cartId: $cartId, cartItems: [{ sku: $sku, quantity: $qty }]) {
+    cart {
+      total_quantity
+      items { uid quantity product { sku name } prices { row_total { value currency } } }
+    }
+    user_errors { code message }
+  }
+}

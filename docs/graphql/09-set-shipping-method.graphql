@@ -1,0 +1,9 @@
+# MUTATION: choose one of the available_shipping_methods. The response lists payment methods.
+mutation SetShippingMethod($cartId: String!, $carrier: String!, $method: String!) {
+  setShippingMethodsOnCart(input: { cart_id: $cartId, shipping_methods: [{ carrier_code: $carrier, method_code: $method }] }) {
+    cart {
+      shipping_addresses { selected_shipping_method { carrier_title amount { value currency } } }
+      available_payment_methods { code title }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+# QUERY: one product by SKU, with stock status and images.
+query Product($sku: String!) {
+  products(filter: { sku: { eq: $sku } }) {
+    items {
+      sku
+      name
+      stock_status
+      description { html }
+      media_gallery { url label }
+      price_range { minimum_price { final_price { value currency } } }
+    }
+  }
+}

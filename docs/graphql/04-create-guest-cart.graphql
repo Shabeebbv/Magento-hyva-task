@@ -1,0 +1,6 @@
+# MUTATION: create an empty cart for a guest. Returns the cart id (a "masked" id, safe to share with the browser).
+mutation CreateGuestCart {
+  createGuestCart {
+    cart { id }
+  }
+}

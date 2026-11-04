@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- Home page only: cms_index_index is the layout handle Magento uses for the store's home page -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!-- Browser tab title; " | Peak Sports" is added from the store config -->
+        <title>Football Jerseys</title>
+    </head>
+    <body>
+        <!-- Hide the "Home Page" heading and the placeholder CMS text; our sections replace them -->
+        <referenceBlock name="page.main.title" remove="true"/>
+        <referenceBlock name="cms_page" remove="true"/>
+
+        <!-- page.top sits outside the centred content column, so the hero can be full width -->
+        <referenceContainer name="page.top">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="home.hero"
+                   template="Magento_Cms::home/hero.phtml"/>
+        </referenceContainer>
+
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="home.products"
+                   template="Magento_Cms::home/products.phtml">
+                <arguments>
+                    <argument name="category_url_key" xsi:type="string">football-jerseys</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,38 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+
+// getViewFileUrl() finds web/images/hero.jpg in the theme (child first, then parent)
+$heroImage = $block->getViewFileUrl('images/hero.jpg');
+?>
+<!-- Banner: fixed height (440px phone, 560px desktop); the photo is cropped to fill it with object-cover -->
+<section class="relative isolate flex h-[440px] items-center overflow-hidden bg-secondary md:h-[560px]">
+    <img src="<?= $escaper->escapeUrl($heroImage) ?>"
+         alt=""
+         class="absolute inset-0 -z-10 h-full w-full object-cover object-center"
+         width="2000" height="1333"
+         fetchpriority="high">
+    <!-- Dark fade on the left so the white text is always readable -->
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-secondary/95 via-secondary/60 to-secondary/10"></div>
+
+    <div class="container mx-auto px-6 text-white">
+        <p class="text-sm font-semibold uppercase tracking-widest text-blue-300">
+            <?= $escaper->escapeHtml(__('New season 2026/27')) ?>
+        </p>
+        <h1 class="mt-3 max-w-2xl text-4xl font-black leading-tight md:text-6xl">
+            <?= $escaper->escapeHtml(__('Wear your club’s colours.')) ?>
+        </h1>
+        <p class="mt-4 max-w-xl text-base text-gray-200 md:text-lg">
+            <?= $escaper->escapeHtml(__('The new home jerseys from Europe’s biggest clubs, delivered across the UAE.')) ?>
+        </p>
+        <a href="<?= $escaper->escapeUrl($block->getUrl('', ['_direct' => 'football-jerseys.html'])) ?>"
+           class="btn btn-primary mt-8 px-8 py-3 text-base">
+            <?= $escaper->escapeHtml(__('Shop jerseys')) ?>
+        </a>
+    </div>
+</section>

@@ -1,0 +1,17 @@
+# QUERY: a category and its products. $urlKey is a variable (e.g. "football-jerseys").
+query CategoryProducts($urlKey: String!) {
+  categories(filters: { url_key: { eq: $urlKey } }) {
+    items {
+      name
+      product_count
+      products(pageSize: 12, sort: { name: ASC }) {
+        items {
+          sku
+          name
+          url_key
+          price_range { minimum_price { final_price { value currency } } }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+?>
+<div class="bg-secondary text-white text-xs sm:text-sm">
+    <div class="container mx-auto flex items-center justify-center gap-6 px-6 py-2">
+        <span><?= $escaper->escapeHtml(__('Free delivery on orders over AED 300')) ?></span>
+        <span class="hidden sm:inline opacity-50">|</span>
+        <span class="hidden sm:inline"><?= $escaper->escapeHtml(__('Easy 14-day returns')) ?></span>
+    </div>
+</div>

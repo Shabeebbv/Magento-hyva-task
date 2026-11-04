@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <body>
-        <!-- Title first, breadcrumbs underneath, then the toolbar and product grid -->
-        <move element="breadcrumbs" destination="columns.top" after="page.main.title"/>
-        <referenceBlock name="category.description" remove="true"/>
-        <referenceBlock name="category.product.addto.compare" remove="true"/>
-    </body>
-</page>

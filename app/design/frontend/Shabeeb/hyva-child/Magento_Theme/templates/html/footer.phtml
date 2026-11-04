@@ -1,0 +1,67 @@
+<?php
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\StoreConfig;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var ViewModelRegistry $viewModels */
+
+$storeConfig = $viewModels->require(StoreConfig::class);
+$copyright = (string) $storeConfig->getStoreConfig('design/footer/copyright');
+
+// Each column: [title, [[link label, url], ...]]. __() returns an object, so it cannot be an array key.
+$columns = [
+    [__('Shop'), [
+        [__('Football Jerseys'), $block->getUrl('', ['_direct' => 'football-jerseys.html'])],
+        [__('Shopping cart'), $block->getUrl('checkout/cart')],
+    ]],
+    [__('Help'), [
+        [__('Contact us'), $block->getUrl('contact')],
+        [__('Track an order'), $block->getUrl('sales/guest/form')],
+    ]],
+    [__('My account'), [
+        [__('Sign in'), $block->getUrl('customer/account/login')],
+        [__('Create an account'), $block->getUrl('customer/account/create')],
+    ]],
+];
+?>
+<!-- Magento already wraps this in <footer class="page-footer">, so a <div> is used here (no footer inside a footer) -->
+<div class="bg-secondary text-gray-300">
+    <div class="container mx-auto grid gap-10 px-6 py-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div>
+            <p class="text-xl font-black tracking-wide text-white">
+                PEAK <span class="font-normal text-blue-400">SPORTS</span>
+            </p>
+            <p class="mt-3 text-sm leading-relaxed">
+                <?= $escaper->escapeHtml(__('Official club football jerseys, delivered across the UAE.')) ?>
+            </p>
+        </div>
+
+        <?php foreach ($columns as [$title, $links]): ?>
+            <nav aria-label="<?= $escaper->escapeHtmlAttr($title) ?>">
+                <h2 class="mb-4 text-sm font-semibold uppercase tracking-wider text-white">
+                    <?= $escaper->escapeHtml($title) ?>
+                </h2>
+                <ul class="space-y-2 text-sm">
+                    <?php foreach ($links as [$label, $url]): ?>
+                        <li>
+                            <a href="<?= $escaper->escapeUrl($url) ?>" class="hover:text-white hover:underline">
+                                <?= $escaper->escapeHtml($label) ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </nav>
+        <?php endforeach; ?>
+    </div>
+
+    <div class="border-t border-white/10">
+        <p class="container mx-auto px-6 py-5 text-center text-xs text-gray-400">
+            <?= $escaper->escapeHtml($copyright) ?>
+        </p>
+    </div>
+</div>

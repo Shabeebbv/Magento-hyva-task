@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Shabeeb_ReactCheckout">
+        <!-- Load after these, so our checkout layout is applied on top of theirs -->
+        <sequence>
+            <module name="Magento_Checkout"/>
+            <module name="Magento_QuoteGraphQl"/>
+            <module name="Hyva_Theme"/>
+        </sequence>
+    </module>
+</config>

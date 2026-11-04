@@ -1,0 +1,6 @@
+# MUTATION: billing address (here: same as shipping).
+mutation SetBillingAddress($cartId: String!) {
+  setBillingAddressOnCart(input: { cart_id: $cartId, billing_address: { same_as_shipping: true } }) {
+    cart { billing_address { firstname city } }
+  }
+}

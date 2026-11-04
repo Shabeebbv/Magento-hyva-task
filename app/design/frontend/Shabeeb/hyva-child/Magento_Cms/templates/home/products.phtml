@@ -1,0 +1,101 @@
+<?php
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HyvaCsp;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var ViewModelRegistry $viewModels */
+/** @var HyvaCsp $hyvaCsp */
+
+// Passed in from the layout XML <argument name="category_url_key">
+$categoryUrlKey = (string) $block->getData('category_url_key');
+?>
+<section class="my-16" x-data="homeProducts" data-category="<?= $escaper->escapeHtmlAttr($categoryUrlKey) ?>">
+    <div class="mb-8 flex items-end justify-between gap-4">
+        <h2 class="text-2xl md:text-3xl font-bold"><?= $escaper->escapeHtml(__('Shop jerseys')) ?></h2>
+        <a href="<?= $escaper->escapeUrl($block->getUrl('', ['_direct' => $categoryUrlKey . '.html'])) ?>"
+           class="text-sm font-semibold text-primary hover:underline">
+            <?= $escaper->escapeHtml(__('View all')) ?> →
+        </a>
+    </div>
+
+    <p x-show="loading" class="text-fg-secondary"><?= $escaper->escapeHtml(__('Loading…')) ?></p>
+    <p x-show="error" x-text="error" class="text-red-700"></p>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <template x-for="product in products" :key="product.sku">
+            <a :href="product.url" class="group block overflow-hidden rounded-xl bg-surface shadow-sm ring-1 ring-gray-200 transition hover:shadow-lg">
+                <!-- Square frame (product photos are square, white background) -->
+                <div class="aspect-square overflow-hidden bg-white p-6">
+                    <img :src="product.small_image.url" :alt="product.name" loading="lazy"
+                         width="500" height="500"
+                         class="h-full w-full object-contain transition duration-300 group-hover:scale-105">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-semibold" x-text="product.name"></h3>
+                    <p class="mt-1 text-lg font-bold text-primary" x-text="product.price"></p>
+                    <span class="btn btn-primary mt-4 w-full"><?= $escaper->escapeHtml(__('View product')) ?></span>
+                </div>
+            </a>
+        </template>
+    </div>
+</section>
+<script>
+    function homeProducts() {
+        return {
+            loading: true,
+            error: '',
+            products: [],
+
+            // Runs automatically when Alpine starts this component
+            async init() {
+                // 1) find the category by its URL key, 2) get its products
+                const query = `query HomeProducts($urlKey: String!) {
+                    categories(filters: { url_key: { eq: $urlKey } }) {
+                        items {
+                            products(pageSize: 3, sort: { name: ASC }) {
+                                items {
+                                    sku
+                                    name
+                                    url_key
+                                    url_suffix
+                                    small_image { url }
+                                    price_range { minimum_price { final_price { value } } }
+                                }
+                            }
+                        }
+                    }
+                }`;
+                try {
+                    const response = await fetch(`${BASE_URL}graphql`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Store': CURRENT_STORE_CODE },
+                        body: JSON.stringify({ query, variables: { urlKey: this.$el.dataset.category } })
+                    });
+                    const result = await response.json();
+                    if (result.errors) {
+                        throw new Error(result.errors[0].message);
+                    }
+                    const category = result.data.categories.items[0];
+                    // Add a ready-made link and formatted price to each product for the template
+                    this.products = (category ? category.products.items : []).map((product) => ({
+                        ...product,
+                        url: `${BASE_URL}${product.url_key}${product.url_suffix}`,
+                        price: hyva.formatPrice(product.price_range.minimum_price.final_price.value)
+                    }));
+                } catch (e) {
+                    this.error = e.message;
+                } finally {
+                    this.loading = false;
+                }
+            }
+        };
+    }
+
+    window.addEventListener('alpine:init', () => Alpine.data('homeProducts', homeProducts));
+</script>
+<?php $hyvaCsp->registerInlineScript() ?>

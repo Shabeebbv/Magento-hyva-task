@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- Every page: header and footer changes for Peak Sports -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- Black announcement bar above the header -->
+        <referenceContainer name="header.container">
+            <block name="header.top.bar"
+                   template="Magento_Theme::html/header/top-bar.phtml"
+                   before="header-content"/>
+        </referenceContainer>
+
+        <!-- Our logo (web/images/logo.svg) is 200 x 40 -->
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_width" xsi:type="number">200</argument>
+                <argument name="logo_height" xsi:type="number">40</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>
